@@ -1,0 +1,12 @@
+import pandas as pd
+import requests
+from bs4 import BeautifulSoup
+import json
+
+url = 'https://www.imdb.com/chart/top'
+r = requests.get(url, headers = headers)
+r.status_code
+
+document = BeautifulSoup(r.content, 'html.parser')
+data = json.loads(document.find('script',{'id':"__NEXT_DATA__"}).text)
+movies = data['props']['pageProps']['pageData']['chartTitles']['edges']
